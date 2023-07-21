@@ -23,7 +23,7 @@ public class Cmd_MoveChasis extends CommandBase {
   public void initialize() {
     //Reinicio e inicializacion de variables
     resetAll();
-    kP = 0.013; kI = 0.01; kD = 0.0022; kT=0.002;
+    kP = 0.010; kI = 0.012; kD = 0.0022; kT=0.002;
     Chasis.resetEncoders();
     Chasis.CalibrateMaxVoltage();
     Chasis.SetOpenLoopedS(1);
