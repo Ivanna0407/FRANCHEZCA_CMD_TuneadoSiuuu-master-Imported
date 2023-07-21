@@ -23,11 +23,12 @@ public class Cmd_MoveChasis extends CommandBase {
   public void initialize() {
     //Reinicio e inicializacion de variables
     resetAll();
-    kP = 0.013; kI = 0.01; kD = 0.0022; kT=0.0012;
+    kP = 0.013; kI = 0.01; kD = 0.0022; kT=0.002;
     Chasis.resetEncoders();
     Chasis.CalibrateMaxVoltage();
     Chasis.SetOpenLoopedS(1);
     Chasis.resetYaw();
+
     
   }
 
@@ -58,8 +59,8 @@ public class Cmd_MoveChasis extends CommandBase {
     ErrorTeta = Chasis.getYaw();
 
     //Control de velocidad
-    RightSpeed = (RightErrorP * kP) + (RightErrorI * kI) + (RightErrorD * kD)+(ErrorTeta * kT);
-    LeftSpeed = (LeftErrorP * kP) + (LeftErrorI * kI) + (LeftErrorD * kD)-(ErrorTeta * kT);
+    RightSpeed = (RightErrorP * kP) + (RightErrorI * kI) + (RightErrorD * kD);//+(ErrorTeta * kT);
+    LeftSpeed = (LeftErrorP * kP) + (LeftErrorI * kI) + (LeftErrorD * kD);//-(ErrorTeta * kT);
 
     //Set a los motores
     Chasis.setSpeed(RightSpeed, LeftSpeed);
@@ -82,6 +83,7 @@ public class Cmd_MoveChasis extends CommandBase {
     //Control de error al 1%
     if(Math.abs(Chasis.getpromencoders()) == Math.abs(Setpoint)){ 
       Chasis.SetOpenLoopedS(0);
+      Chasis.setSpeed(0, 0);
       return true; }else{ return false; }
   }
 

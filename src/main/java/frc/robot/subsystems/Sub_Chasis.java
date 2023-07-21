@@ -66,8 +66,8 @@ public class Sub_Chasis extends SubsystemBase {
   public void CalibrateMaxVoltage(){
     MasterRightMotor.configVoltageCompSaturation(Volts);
     MasterLeftMotor.configVoltageCompSaturation(Volts);
-    MasterRightMotor.configVoltageCompSaturation(Volts);
-    MasterLeftMotor.configVoltageCompSaturation(Volts);
+    SlaveRightMotor.configVoltageCompSaturation(Volts);
+    SlaveLeftMotor.configVoltageCompSaturation(Volts);
   }
 
   public void resetEncoders(){
@@ -95,12 +95,12 @@ public class Sub_Chasis extends SubsystemBase {
     return MasterLeftMotor.getTemperature();
   }
   public void setSpeed(double RightSpeed,double LeftSpeed){
+    if(Math.abs(LeftSpeed) >= 0.8){LeftSpeed = (LeftSpeed/Math.abs(LeftSpeed))*0.8;}
     if(Math.abs(RightSpeed) >= 0.8){RightSpeed = (RightSpeed/Math.abs(RightSpeed))*0.8;}
 
-    if(Math.abs(LeftSpeed) >= 0.8){LeftSpeed = (LeftSpeed/Math.abs(LeftSpeed))*0.8;}
 
-    MasterRightMotor.set(RightSpeed);
-    MasterLeftMotor.set(LeftSpeed);
+
+    MasterRightMotor.set(RightSpeed);MasterLeftMotor.set(LeftSpeed);
   }
 
   public double getYaw(){
