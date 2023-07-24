@@ -23,11 +23,12 @@ public class Cmd_MoveChasis extends CommandBase {
   public void initialize() {
     //Reinicio e inicializacion de variables
     resetAll();
-    kP = 0.013; kI = 0.01; kD = 0.0022; kT=0.0012;
+    kP = 0.009; kI = 0.008; kD = 0.0022; kT=0.0075;
     Chasis.resetEncoders();
     Chasis.CalibrateMaxVoltage();
-    Chasis.SetOpenLoopedS(1);
+    Chasis.SetOpenLoopedS(0);
     Chasis.resetYaw();
+
     
   }
 
@@ -39,12 +40,8 @@ public class Cmd_MoveChasis extends CommandBase {
     Dt = Timer.getFPGATimestamp() - LastDt;
 
     //P
-    RightErrorP = Setpoint - Chasis.getRightEncoder();
+    RightErrorP = Setpoint - Chasis.getpromencoders();
     LeftErrorP = Setpoint  - Chasis.getLeftEncoder();
-
-    //angulo
-   
-
 
     //I
     if(Math.abs(RightErrorP) <= I_Zone){ RightErrorI += RightErrorP * Dt; }else{ RightErrorI = 0; }
@@ -58,11 +55,11 @@ public class Cmd_MoveChasis extends CommandBase {
     ErrorTeta = Chasis.getYaw();
 
     //Control de velocidad
-    RightSpeed = (RightErrorP * kP) + (RightErrorI * kI) + (RightErrorD * kD)+(ErrorTeta * kT);
-    LeftSpeed = (LeftErrorP * kP) + (LeftErrorI * kI) + (LeftErrorD * kD)-(ErrorTeta * kT);
+    RightSpeed = (RightErrorP * kP) + (RightErrorI * kI) + (RightErrorD * kD)-(ErrorTeta * kT)*0;
+    LeftSpeed = (LeftErrorP * kP) + (LeftErrorI * kI) + (LeftErrorD * kD)+(ErrorTeta * kT)*0;
 
     //Set a los motores
-    Chasis.setSpeed(RightSpeed, LeftSpeed);
+    Chasis.setSpeed(RightSpeed-(ErrorTeta * kT), RightSpeed+(ErrorTeta * kT));
 
     //Retroalimentacion de errores y tiempos
     RightLastError = RightErrorP;
@@ -82,11 +79,13 @@ public class Cmd_MoveChasis extends CommandBase {
     //Control de error al 1%
     if(Math.abs(Chasis.getpromencoders()) == Math.abs(Setpoint)){ 
       Chasis.SetOpenLoopedS(0);
+      Chasis.setSpeed(0, 0);
+      Chasis.resetYaw();
       return true; }else{ return false; }
   }
 
   public void resetAll(){
-    Dt = 0; LastDt = 0; I_Zone = Math.abs(Setpoint*0.20);
+    Dt = 0; LastDt = 0; I_Zone = Math.abs(Setpoint*0.15);
     RightErrorP = 0; RightErrorI = 0; RightErrorD = 0; RightLastError = 0; RightSpeed = 0;
     LeftErrorP = 0; LeftErrorI = 0; LeftErrorD = 0; LeftLastError = 0; LeftSpeed = 0;
   }
