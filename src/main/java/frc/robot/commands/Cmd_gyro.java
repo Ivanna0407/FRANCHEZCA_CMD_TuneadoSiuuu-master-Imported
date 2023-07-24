@@ -30,7 +30,7 @@ public class Cmd_gyro extends CommandBase {
   
     ErrorP = grados - Position;
     if(Math.abs(ErrorP)<=I_zone){ErrorI+=ErrorP*dt;}else{ErrorI=0;};
-    Speed = (ErrorP*0.005)+(0.009*ErrorI);
+    Speed = (ErrorP*0.0039)+(0.004*ErrorI);
 
 
     Chasis.setSpeed(Speed, -Speed);
@@ -49,7 +49,7 @@ public class Cmd_gyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Math.abs(ErrorP)<= 0.5){
+    if(Math.abs(ErrorP)<= 0.25){
       Chasis.SetOpenLoopedS(0);
       clearAll();
       return true;

@@ -30,12 +30,12 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //Nota: PID no esta para distancias cortas 
     return new SequentialCommandGroup(//
-        new Cmd_MoveChasis(chasis, -25),//
         new Cmd_gyro(chasis, 180),
-        new Cmd_MoveChasis(chasis, 100),
-        new Cmd_gyro(chasis, 180),
-        new Cmd_MoveChasis(chasis, 100),
-        new Cmd_VisionAlign(chasis)
+        new Cmd_MoveChasis(chasis, 224),
+        new Cmd_gyro(chasis, -175),
+        new Cmd_MoveChasis(chasis, 184),
+        new Cmd_VisionAlign(chasis),
+        new Cmd_gyro(chasis, 180)
       );
     
   }
