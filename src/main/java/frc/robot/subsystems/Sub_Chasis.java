@@ -60,7 +60,7 @@ public class Sub_Chasis extends SubsystemBase {
     SmartDashboard.putNumber("RightSpeed", MasterRightMotor.get());
     SmartDashboard.putNumber("LeftSpeed", MasterLeftMotor.get());
     Volts = RobotController.getBatteryVoltage();
-    
+
   }
   
   public void CalibrateMaxVoltage(){
@@ -124,5 +124,8 @@ public class Sub_Chasis extends SubsystemBase {
   public double getTa(){
     return NetworkTableInstance.getDefault().getTable("limelight-abtomat").getEntry("ta").getDouble(10);
   }
-
+  
+  public void SetVisionMode (Double m){
+    NetworkTableInstance.getDefault().getTable("limelight-abtomat").getEntry("pipeline").setNumber(m);
+  }
 }
