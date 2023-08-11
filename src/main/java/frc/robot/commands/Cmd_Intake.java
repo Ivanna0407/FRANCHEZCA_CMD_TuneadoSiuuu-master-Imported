@@ -13,11 +13,13 @@ import frc.robot.subsystems.Sub_Intake;
 public class Cmd_Intake extends CommandBase {
   private final Sub_Intake Intake;
   private final Supplier<Double> YAxis;
+  private final int mode;
   boolean bloqueo;
-  public Cmd_Intake(Sub_Intake intake, Supplier<Double> Y) {
+  public Cmd_Intake(Sub_Intake intake, Supplier<Double> Y,int Mode) {
     addRequirements(intake);
     this.Intake=intake;
     this.YAxis=Y;
+    this.mode=Mode;
     
   }
 
@@ -42,11 +44,15 @@ public class Cmd_Intake extends CommandBase {
     if(Speed<0){
       bloqueo=false;
     }
-    //System.out.println(Intake.GetVoltaje());
-    //System.out.println(bloqueo);
-    //System.out.println(Speed);
-    Intake.SetIntake(Speed);
 
+    if(mode==1){
+      Intake.SetIntake(Speed*.5);
+      System.out.println("modo cono");
+    }
+    else
+    {
+    Intake.SetIntake(Speed);
+    }
   }
 
   // Called once the command ends or is interrupted.

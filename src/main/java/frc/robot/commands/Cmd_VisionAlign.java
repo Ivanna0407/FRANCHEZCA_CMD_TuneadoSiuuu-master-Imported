@@ -34,7 +34,10 @@ public class Cmd_VisionAlign extends CommandBase {
     ErrorX = 0 - tx;
     ErrorY = 3.5 - ta;
     if(Math.abs(ErrorX)<=0.6){ErrorX = 0;}
-    if(Math.abs(ErrorY)<=0.6){ErrorY = 0;}
+    if(Math.abs(ErrorY)<=0.6){ErrorY = 0;
+    
+    
+    }
 
     if(Math.abs(ErrorY)<=0.8){
       ErrorYI += ErrorY * dt;
@@ -49,7 +52,7 @@ public class Cmd_VisionAlign extends CommandBase {
     }
 
     double foward = (ErrorY)*0.1 + (ErrorYI)*0.005;
-    double turn = (ErrorX)*(0.005) + (ErrorXI*0.004);
+    double turn = (ErrorX)*(0.004) + (ErrorXI*0.004); //observar I
 
     double RightSpeed = foward - turn;
     double LeftSpeed = foward + turn;

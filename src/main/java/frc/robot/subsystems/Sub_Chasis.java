@@ -100,7 +100,7 @@ public class Sub_Chasis extends SubsystemBase {
 
 
 
-    MasterRightMotor.set(RightSpeed);MasterLeftMotor.set(LeftSpeed);
+    MasterRightMotor.set(RightSpeed*.5);MasterLeftMotor.set(LeftSpeed*.5);
   }
 
   public double getYaw(){
