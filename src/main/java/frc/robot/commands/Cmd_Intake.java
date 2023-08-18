@@ -46,7 +46,7 @@ public class Cmd_Intake extends CommandBase {
     }
 
     if(mode==1){
-      Intake.SetIntake(Speed*.5);
+      Intake.SetIntake(Speed*.6);
       System.out.println("modo cono");
     }
     else

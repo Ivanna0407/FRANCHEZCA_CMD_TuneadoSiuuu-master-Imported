@@ -20,6 +20,7 @@ public class Cmd_ManualDriveChasis extends CommandBase {
   @Override
   public void initialize() {
     Chasis.resetEncoders();
+    Chasis.resetEncodersN();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +42,7 @@ public class Cmd_ManualDriveChasis extends CommandBase {
 
     //Set a los motores
     Chasis.setSpeed(RightSpeed, LeftSpeed);
+    //Chasis.setSpeedN(RightSpeed, LeftSpeed);
 
    
     

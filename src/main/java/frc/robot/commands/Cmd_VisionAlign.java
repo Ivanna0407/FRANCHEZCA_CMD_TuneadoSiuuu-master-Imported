@@ -18,7 +18,7 @@ public class Cmd_VisionAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){
-    chasis.SetOpenLoopedS(0.75);
+    //chasis.SetOpenLoopedS(0.75);
     chasis.SetVisionMode(mode);
   }
 
@@ -89,14 +89,14 @@ public class Cmd_VisionAlign extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    chasis.SetOpenLoopedS(0);
+    //chasis.SetOpenLoopedS(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished(){
     if(Math.abs(ErrorX)<=0.0 && Math.abs(ErrorY)<=0.0){
-      chasis.SetOpenLoopedS(0);
+      //chasis.SetOpenLoopedS(0);
       return true;
     }else{return false;}
   }

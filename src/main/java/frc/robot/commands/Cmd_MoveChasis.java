@@ -26,8 +26,9 @@ public class Cmd_MoveChasis extends CommandBase {
     resetAll();
     kP = 0.009; kI = 0.008; kD = 0.0022; kT=0.0075;
     Chasis.resetEncoders();
+    Chasis.resetEncodersN();
     Chasis.CalibrateMaxVoltage();
-    Chasis.SetOpenLoopedS(0);
+    //Chasis.SetOpenLoopedS(0);
     Chasis.resetYaw();
 
     
@@ -41,8 +42,10 @@ public class Cmd_MoveChasis extends CommandBase {
     Dt = Timer.getFPGATimestamp() - LastDt;
 
     //P
-    RightErrorP = Setpoint - Chasis.getpromencoders();
-    LeftErrorP = Setpoint  - Chasis.getLeftEncoder();
+    RightErrorP = Setpoint //- Chasis.getpromencoders();
+    -Chasis.getRightEncoderN();
+    LeftErrorP = Setpoint  //- Chasis.getLeftEncoder();
+    -Chasis.getLeftEncoderN();
 
     //I
     if(Math.abs(RightErrorP) <= I_Zone){ RightErrorI += RightErrorP * Dt; }else{ RightErrorI = 0; }
@@ -71,18 +74,27 @@ public class Cmd_MoveChasis extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Chasis.SetOpenLoopedS(0);
+    //Chasis.SetOpenLoopedS(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     //Control de error al 1%
+    /* 
     if(Math.abs(Chasis.getpromencoders()) == Math.abs(Setpoint)){ 
-      Chasis.SetOpenLoopedS(0);
+      //Chasis.SetOpenLoopedS(0);
       Chasis.setSpeed(0, 0);
       Chasis.resetYaw();
       return true; }else{ return false; }
+      */
+      
+      if(Math.abs(Chasis.getpromEncoders()) == Math.abs(Setpoint)){ 
+        Chasis.SetOpenLoopedSN(0);
+        Chasis.setSpeed(0, 0);
+        Chasis.resetYaw();
+      
+        return true; }else{ return false; }
   }
 
   public void resetAll(){
