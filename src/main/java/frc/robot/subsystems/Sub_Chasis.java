@@ -32,15 +32,20 @@ public class Sub_Chasis extends SubsystemBase {
 
 
   
-    private final CANSparkMax MasterRightMotor=new CANSparkMax(1, MotorType.kBrushless);
+    private final CANSparkMax MasterRightMotor=new CANSparkMax(2, MotorType.kBrushless);
     private final CANSparkMax MasterLeftMotor=new CANSparkMax(3, MotorType.kBrushless);
-    private final CANSparkMax SlaveRightMotor=new CANSparkMax(2, MotorType.kBrushless);
-    private final CANSparkMax SlaveLeftMotor=new CANSparkMax(4, MotorType.kBrushless);
+    private final CANSparkMax SlaveRightMotor=new CANSparkMax(4, MotorType.kBrushless);
+    private final CANSparkMax SlaveLeftMotor=new CANSparkMax(5, MotorType.kBrushless);
 
     private final RelativeEncoder EncoderR = MasterRightMotor.getEncoder();
     private final RelativeEncoder EncoderL = MasterLeftMotor.getEncoder();
   
   public Sub_Chasis() {
+
+    MasterRightMotor.restoreFactoryDefaults();
+    SlaveRightMotor.restoreFactoryDefaults();
+    MasterLeftMotor.restoreFactoryDefaults();
+    SlaveLeftMotor.restoreFactoryDefaults();
    // MasterRightMotor.configFactoryDefault();  SlaveRightMotor.configFactoryDefault();
    // MasterLeftMotor.configFactoryDefault();  SlaveLeftMotor.configFactoryDefault();
 
@@ -87,16 +92,17 @@ public class Sub_Chasis extends SubsystemBase {
     SmartDashboard.putNumber("Yaw", ahrs.getYaw());
     SmartDashboard.putNumber("RightSpeed", MasterRightMotor.get());
     SmartDashboard.putNumber("LeftSpeed", MasterLeftMotor.get());
+    SmartDashboard.putNumber("VelocidadR", Volts);
     Volts = RobotController.getBatteryVoltage();
 
   }
   
-  public void CalibrateMaxVoltage(){
+  //public void CalibrateMaxVoltage(){
     //MasterRightMotor.configVoltageCompSaturation(Volts);
     //MasterLeftMotor.configVoltageCompSaturation(Volts);
     //SlaveRightMotor.configVoltageCompSaturation(Volts);
     //SlaveLeftMotor.configVoltageCompSaturation(Volts);
-  }
+  //}
 
   public void resetEncoders(){
     //MasterLeftMotor.setSelectedSensorPosition(0);

@@ -27,7 +27,7 @@ public class Cmd_MoveChasis extends CommandBase {
     kP = 0.009; kI = 0.008; kD = 0.0022; kT=0.0075;
     Chasis.resetEncoders();
     Chasis.resetEncodersN();
-    Chasis.CalibrateMaxVoltage();
+    //Chasis.CalibrateMaxVoltage();
     //Chasis.SetOpenLoopedS(0);
     Chasis.resetYaw();
 

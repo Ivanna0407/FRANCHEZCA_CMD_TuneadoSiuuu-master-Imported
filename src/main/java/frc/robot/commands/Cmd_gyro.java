@@ -17,7 +17,7 @@ public class Cmd_gyro extends CommandBase {
   @Override
   public void initialize() {
     Chasis.resetYaw();
-    Chasis.CalibrateMaxVoltage();
+    //Chasis.CalibrateMaxVoltage();
     clearAll();
     //Chasis.SetOpenLoopedS(0.5);
   }
