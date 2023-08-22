@@ -19,7 +19,7 @@ public class Cmd_gyro extends CommandBase {
     Chasis.resetYaw();
     //Chasis.CalibrateMaxVoltage();
     clearAll();
-    //Chasis.SetOpenLoopedS(0.5);
+    Chasis.SetOpenLoopedSN(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,7 +50,7 @@ public class Cmd_gyro extends CommandBase {
   @Override
   public boolean isFinished() {
     if(Math.abs(ErrorP)<= 0.25){
-      //Chasis.SetOpenLoopedS(0);
+      Chasis.SetOpenLoopedSN(0);
       clearAll();
       return true;
     }else{return false;}

@@ -18,7 +18,7 @@ public class Cmd_VisionAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){
-    //chasis.SetOpenLoopedS(0.75);
+    chasis.SetOpenLoopedSN(.75);
     chasis.SetVisionMode(mode);
   }
 

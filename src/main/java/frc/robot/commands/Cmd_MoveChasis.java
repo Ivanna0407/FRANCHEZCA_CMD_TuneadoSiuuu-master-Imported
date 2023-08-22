@@ -25,10 +25,9 @@ public class Cmd_MoveChasis extends CommandBase {
     //Reinicio e inicializacion de variables
     resetAll();
     kP = 0.009; kI = 0.008; kD = 0.0022; kT=0.0075;
-    Chasis.resetEncoders();
     Chasis.resetEncodersN();
     //Chasis.CalibrateMaxVoltage();
-    //Chasis.SetOpenLoopedS(0);
+    Chasis.SetOpenLoopedSN(1);
     Chasis.resetYaw();
 
     
@@ -42,10 +41,8 @@ public class Cmd_MoveChasis extends CommandBase {
     Dt = Timer.getFPGATimestamp() - LastDt;
 
     //P
-    RightErrorP = Setpoint //- Chasis.getpromencoders();
-    -Chasis.getRightEncoderN();
-    LeftErrorP = Setpoint  //- Chasis.getLeftEncoder();
-    -Chasis.getLeftEncoderN();
+    RightErrorP = Setpoint-Chasis.getRightEncoderN();
+    LeftErrorP = Setpoint-Chasis.getLeftEncoderN();
 
     //I
     if(Math.abs(RightErrorP) <= I_Zone){ RightErrorI += RightErrorP * Dt; }else{ RightErrorI = 0; }
