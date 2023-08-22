@@ -35,16 +35,23 @@ public class Cmd_ManualArm extends CommandBase {
     double up=RT.get()-LT.get();
 
     if(Arm.getRightArmEncoder()<=145 || Arm.getLeftArmEncoder()<=145){
-        Arm.setSpeedArm(up*.03, up*.03);
+        Arm.setSpeedArm(up*.05, -up*.05);
     }
     else{
       Arm.setSpeedArm(0, 0);
       Arm.setSpeedWrist(0);
     }
-    //Agregar if de encoder
+    if(Arm.getWristEncoder()<=75)
+    {
     if(Bbutton.get()){
       Arm.setSpeedWrist(.2);
     }
+    if(Abutton.get()){
+      Arm.setSpeedWrist(-.2);
+    }
+    }
+  else{Arm.setSpeedWrist(0);}
+  
   }
 
   // Called once the command ends or is interrupted.

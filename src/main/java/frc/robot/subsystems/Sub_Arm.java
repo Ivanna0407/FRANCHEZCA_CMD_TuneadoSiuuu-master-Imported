@@ -11,9 +11,9 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Sub_Arm extends SubsystemBase {
-  private final CANSparkMax RightArmMotor= new CANSparkMax(0, MotorType.kBrushless);
-  private final CANSparkMax LeftArmMotor= new CANSparkMax(0, MotorType.kBrushless);
-  private final CANSparkMax WristMotor= new CANSparkMax(0, MotorType.kBrushless);
+  private final CANSparkMax RightArmMotor= new CANSparkMax(6, MotorType.kBrushless);
+  private final CANSparkMax LeftArmMotor= new CANSparkMax(7, MotorType.kBrushless);
+  private final CANSparkMax WristMotor= new CANSparkMax(8, MotorType.kBrushless);
 
     //Encoders 
     private final RelativeEncoder EncoderR=RightArmMotor.getEncoder();
@@ -26,16 +26,51 @@ public class Sub_Arm extends SubsystemBase {
     LeftArmMotor.setIdleMode(IdleMode.kBrake);
     WristMotor.setIdleMode(IdleMode.kBrake);
 
-    RightArmMotor.setOpenLoopRampRate(2);
-    LeftArmMotor.setOpenLoopRampRate(2);
-    WristMotor.setOpenLoopRampRate(1);
-
-
-
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
+    public void resetEncodersArm(){
+      EncoderR.setPosition(0);
+      EncoderL.setPosition(0);
+    }
+
+    public void resetEncodersWrist(){
+      EncoderWrist.setPosition(0);
+    }
+
+    public double getLeftArmEncoder(){
+      return EncoderL.getPosition();
+    }
+
+    public double getRightArmEncoder(){
+      return EncoderR.getPosition();
+    }
+    
+   public double getWristEncoder(){
+      return EncoderWrist.getPosition();
+    }
+    public void setSpeedArm(double RightSpeed,double LeftSpeed){
+      if(Math.abs(LeftSpeed) >= 0.8){LeftSpeed = (LeftSpeed/Math.abs(LeftSpeed))*0.8;}
+      if(Math.abs(RightSpeed) >= 0.8){RightSpeed = (RightSpeed/Math.abs(RightSpeed))*0.8;}
+  
+      RightArmMotor.set(RightSpeed*.5);LeftArmMotor.set(LeftSpeed*.5);
+    }
+
+    public void setSpeedWrist(double Wristspeed){
+      if(Math.abs(Wristspeed) >= 0.8){Wristspeed = (Wristspeed/Math.abs(Wristspeed))*0.8;}
+  
+      WristMotor.set(Wristspeed*.5);
+    }
+
+    public void SetOpenLoopedSArm(double S){
+      RightArmMotor.setClosedLoopRampRate(S); LeftArmMotor.setClosedLoopRampRate(S);
+    }
+    public void SetOpenLoopedSWrist(double S){
+     // WristMotor.setClosedLoopRampRate(S); 
+    }
+
 }
