@@ -33,19 +33,19 @@ public class RobotContainer {
   private void configureBindings() {
     //ChasisControl.y().whileTrue(new Cmd_gyro(chasis,180));
 
-    SubsystemControl.y().whileTrue(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
-    SubsystemControl.x().whileTrue(new Cmd_Intake(intake, () -> SubsystemControl.getLeftY(), 1));
+    //SubsystemControl.y().whileTrue(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
+    //SubsystemControl.x().whileTrue(new Cmd_Intake(intake, () -> SubsystemControl.getLeftY(), 1));
 
    
   }
 
   public Command getAutonomousCommand() {
     //Nota: PID no esta para distancias cortas 
-    return new SequentialCommandGroup(//
-       new Cmd_MoveChasis(chasis, 30),
-       new Cmd_gyro(chasis, 180),
-       new Cmd_MoveChasis(chasis, 30)
-      );
+    return new SequentialCommandGroup();//(//
+      // new Cmd_MoveChasis(chasis, 30),
+       //new Cmd_gyro(chasis, 180),
+       //new Cmd_MoveChasis(chasis, 30)
+     // );
     
   }
 

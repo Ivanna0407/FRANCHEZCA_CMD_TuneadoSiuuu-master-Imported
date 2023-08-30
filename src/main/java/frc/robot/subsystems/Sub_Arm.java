@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -19,6 +21,9 @@ public class Sub_Arm extends SubsystemBase {
     private final RelativeEncoder EncoderR=RightArmMotor.getEncoder();
     private final  RelativeEncoder EncoderL=LeftArmMotor.getEncoder();
     private final  RelativeEncoder EncoderWrist=WristMotor.getEncoder();
+
+  DigitalInput limitswitch= new DigitalInput(0);
+  boolean limits=limitswitch.get();
     
   public Sub_Arm() {
     //Brake cuando no se mueve 
@@ -31,7 +36,7 @@ public class Sub_Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+    SmartDashboard.putBoolean("Limit", limitswitch.get());
   }
     public void resetEncodersArm(){
       EncoderR.setPosition(0);
@@ -54,6 +59,11 @@ public class Sub_Arm extends SubsystemBase {
       return EncoderWrist.getPosition();
     }
     public void setSpeedArm(double RightSpeed,double LeftSpeed){
+      if(limitswitch.get()){
+        if(Math.abs(LeftSpeed) >= 0.8){LeftSpeed = Math.abs(LeftSpeed/Math.abs(LeftSpeed))*0.8;}
+        if(Math.abs(RightSpeed) >= 0.8){RightSpeed = Math.abs(RightSpeed/Math.abs(RightSpeed))*0.8;}
+      }
+  
       if(Math.abs(LeftSpeed) >= 0.8){LeftSpeed = (LeftSpeed/Math.abs(LeftSpeed))*0.8;}
       if(Math.abs(RightSpeed) >= 0.8){RightSpeed = (RightSpeed/Math.abs(RightSpeed))*0.8;}
   

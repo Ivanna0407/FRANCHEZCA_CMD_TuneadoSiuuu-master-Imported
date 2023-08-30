@@ -19,6 +19,7 @@ public class Cmd_ManualDriveChasis extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Chasis.SetOpenLoopedSN(3);
     Chasis.resetEncoders();
     Chasis.resetEncodersN();
   }

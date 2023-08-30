@@ -35,7 +35,7 @@ public class Cmd_ManualArm extends CommandBase {
     double up=RT.get()-LT.get();
 
     if(Arm.getRightArmEncoder()<=145 || Arm.getLeftArmEncoder()<=145){
-        Arm.setSpeedArm(up*.05, -up*.05);
+        Arm.setSpeedArm(up, -up);
     }
     else{
       Arm.setSpeedArm(0, 0);
