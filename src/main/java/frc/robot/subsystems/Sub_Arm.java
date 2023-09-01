@@ -15,7 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Sub_Arm extends SubsystemBase {
   private final CANSparkMax RightArmMotor= new CANSparkMax(6, MotorType.kBrushless);
   private final CANSparkMax LeftArmMotor= new CANSparkMax(7, MotorType.kBrushless);
-  private final CANSparkMax WristMotor= new CANSparkMax(8, MotorType.kBrushless);
+  private final CANSparkMax WristMotor= new CANSparkMax(1, MotorType.kBrushless);
 
     //Encoders 
     private final RelativeEncoder EncoderR=RightArmMotor.getEncoder();
@@ -37,6 +37,9 @@ public class Sub_Arm extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Limit", limitswitch.get());
+    RightArmMotor.setIdleMode(IdleMode.kBrake);
+    LeftArmMotor.setIdleMode(IdleMode.kBrake);
+    WristMotor.setIdleMode(IdleMode.kBrake);
   }
     public void resetEncodersArm(){
       EncoderR.setPosition(0);

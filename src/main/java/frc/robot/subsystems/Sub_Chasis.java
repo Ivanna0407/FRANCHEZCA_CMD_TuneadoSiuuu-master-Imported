@@ -160,6 +160,10 @@ public class Sub_Chasis extends SubsystemBase {
     //return ahrs.getYaw();
     return ahrs.getYaw();
   }
+
+  public double getPitch(){
+    return ahrs.getPitch();
+  }
 /* 
   public void SetOpenLoopedS(double S){
     MasterRightMotor.configOpenloopRamp(S); MasterLeftMotor.configOpenloopRamp(S);

@@ -23,7 +23,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     chasis.setDefaultCommand(new Cmd_ManualDriveChasis(chasis, () -> ChasisControl.getRightTriggerAxis(), () -> ChasisControl.getLeftTriggerAxis(), () -> ChasisControl.getLeftX(), () -> ChasisControl.b().getAsBoolean()));
-    //intake.setDefaultCommand(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
+    intake.setDefaultCommand(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
     arm.setDefaultCommand(new Cmd_ManualArm(arm,() -> SubsystemControl.getRightTriggerAxis(),() -> SubsystemControl.getLeftTriggerAxis(), ()-> SubsystemControl.a().getAsBoolean(),() -> SubsystemControl.b().getAsBoolean()));
 
     configureBindings();
@@ -33,19 +33,19 @@ public class RobotContainer {
   private void configureBindings() {
     //ChasisControl.y().whileTrue(new Cmd_gyro(chasis,180));
 
-    //SubsystemControl.y().whileTrue(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
-    //SubsystemControl.x().whileTrue(new Cmd_Intake(intake, () -> SubsystemControl.getLeftY(), 1));
+    SubsystemControl.y().whileTrue(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
+    SubsystemControl.x().whileTrue(new Cmd_Intake(intake, () -> SubsystemControl.getLeftY(), 1));
 
    
   }
 
   public Command getAutonomousCommand() {
     //Nota: PID no esta para distancias cortas 
-    return new SequentialCommandGroup();//(//
-      // new Cmd_MoveChasis(chasis, 30),
-       //new Cmd_gyro(chasis, 180),
-       //new Cmd_MoveChasis(chasis, 30)
-     // );
+    return new SequentialCommandGroup(
+       new Cmd_MoveChasis(chasis, 100),
+       new Cmd_gyro(chasis, 180),
+       new Cmd_MoveChasis(chasis, 30)
+      );
     
   }
 

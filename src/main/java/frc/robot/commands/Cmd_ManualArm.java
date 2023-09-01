@@ -27,6 +27,8 @@ public class Cmd_ManualArm extends CommandBase {
   public void initialize() {
     Arm.resetEncodersArm();
     Arm.resetEncodersWrist();
+    Arm.SetOpenLoopedSArm(1);
+    Arm.SetOpenLoopedSWrist(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,22 +37,24 @@ public class Cmd_ManualArm extends CommandBase {
     double up=RT.get()-LT.get();
 
     if(Arm.getRightArmEncoder()<=145 || Arm.getLeftArmEncoder()<=145){
-        Arm.setSpeedArm(up, -up);
+        Arm.setSpeedArm(up, up);
     }
     else{
       Arm.setSpeedArm(0, 0);
       Arm.setSpeedWrist(0);
     }
-    if(Arm.getWristEncoder()<=75)
-    {
+    
+
+    
     if(Bbutton.get()){
       Arm.setSpeedWrist(.2);
     }
     if(Abutton.get()){
       Arm.setSpeedWrist(-.2);
     }
-    }
-  else{Arm.setSpeedWrist(0);}
+    
+
+  
   
   }
 
