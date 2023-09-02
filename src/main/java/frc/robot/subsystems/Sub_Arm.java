@@ -27,19 +27,29 @@ public class Sub_Arm extends SubsystemBase {
     
   public Sub_Arm() {
     //Brake cuando no se mueve 
-    RightArmMotor.setIdleMode(IdleMode.kBrake);
-    LeftArmMotor.setIdleMode(IdleMode.kBrake);
+
+
     WristMotor.setIdleMode(IdleMode.kBrake);
 
+    EncoderL.setPositionConversionFactor(1/225);
+    EncoderR.setPositionConversionFactor(1/225);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Limit", limitswitch.get());
     RightArmMotor.setIdleMode(IdleMode.kBrake);
     LeftArmMotor.setIdleMode(IdleMode.kBrake);
+
+
+
+
+
+    SmartDashboard.putBoolean("Limit", limitswitch.get());
     WristMotor.setIdleMode(IdleMode.kBrake);
+    SmartDashboard.putNumber("EncoderBrazoL", getLeftArmEncoder());
+    SmartDashboard.putNumber("EncoderBrazoR", getRightArmEncoder());
+    SmartDashboard.putNumber("VoltajeMuñeca", WristMotor.getOutputCurrent());
   }
     public void resetEncodersArm(){
       EncoderR.setPosition(0);
@@ -60,6 +70,9 @@ public class Sub_Arm extends SubsystemBase {
     
    public double getWristEncoder(){
       return EncoderWrist.getPosition();
+    }
+    public boolean getlimitswitch(){
+      return limitswitch.get();
     }
     public void setSpeedArm(double RightSpeed,double LeftSpeed){
       if(limitswitch.get()){
@@ -85,5 +98,5 @@ public class Sub_Arm extends SubsystemBase {
     public void SetOpenLoopedSWrist(double S){
      // WristMotor.setClosedLoopRampRate(S); 
     }
-
+    
 }

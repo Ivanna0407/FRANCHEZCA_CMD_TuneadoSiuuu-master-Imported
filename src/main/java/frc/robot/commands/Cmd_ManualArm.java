@@ -10,23 +10,28 @@ import frc.robot.subsystems.Sub_Arm;
 public class Cmd_ManualArm extends CommandBase {
   /** Creates a new Cmd_ManualArm. */
   private final Sub_Arm Arm;
-  private final Supplier<Double> RT, LT;
-  private final Supplier<Boolean> Abutton,Bbutton;
-  public Cmd_ManualArm(Sub_Arm arm,Supplier<Double> RT, Supplier<Double> LT,Supplier<Boolean>Abutton,Supplier<Boolean>Bbutton) {
+  private final Supplier<Double> RT, LT,Joystick;
+  private final Supplier<Boolean>botonY;
+
+
+  public Cmd_ManualArm(Sub_Arm arm,Supplier<Double> RT, Supplier<Double> LT,Supplier<Double> joytick, Supplier<Boolean>botonY) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(arm);
     this.Arm=arm;
     this.RT=RT;
     this.LT=LT;
-    this.Abutton=Abutton;
-    this.Bbutton=Bbutton;
+    this.Joystick=joytick;
+    this.botonY=botonY;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Arm.resetEncodersArm();
-    Arm.resetEncodersWrist();
+    if(Arm.getlimitswitch())
+    {
+      Arm.resetEncodersArm();
+    }
     Arm.SetOpenLoopedSArm(1);
     Arm.SetOpenLoopedSWrist(1);
   }
@@ -41,17 +46,18 @@ public class Cmd_ManualArm extends CommandBase {
     }
     else{
       Arm.setSpeedArm(0, 0);
-      Arm.setSpeedWrist(0);
+
     }
-    
+    double direccion=0;
+    if(botonY.get())
+    {
+      
+    }
+    if(Math.abs(Joystick.get())<=.25){direccion=0;}else{direccion=Joystick.get();}
+    Arm.setSpeedWrist(direccion*.5);   
 
     
-    if(Bbutton.get()){
-      Arm.setSpeedWrist(.2);
-    }
-    if(Abutton.get()){
-      Arm.setSpeedWrist(-.2);
-    }
+
     
 
   

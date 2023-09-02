@@ -7,6 +7,7 @@ import frc.robot.commands.Cmd_ManualArm;
 import frc.robot.commands.Cmd_ManualDriveChasis;
 import frc.robot.commands.Cmd_MoveChasis;
 import frc.robot.commands.Cmd_VisionAlign;
+import frc.robot.commands.Cmd_Wrist;
 import frc.robot.commands.Cmd_gyro;
 import frc.robot.subsystems.Sub_Arm;
 import frc.robot.subsystems.Sub_Chasis;
@@ -24,7 +25,7 @@ public class RobotContainer {
   public RobotContainer() {
     chasis.setDefaultCommand(new Cmd_ManualDriveChasis(chasis, () -> ChasisControl.getRightTriggerAxis(), () -> ChasisControl.getLeftTriggerAxis(), () -> ChasisControl.getLeftX(), () -> ChasisControl.b().getAsBoolean()));
     intake.setDefaultCommand(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
-    arm.setDefaultCommand(new Cmd_ManualArm(arm,() -> SubsystemControl.getRightTriggerAxis(),() -> SubsystemControl.getLeftTriggerAxis(), ()-> SubsystemControl.a().getAsBoolean(),() -> SubsystemControl.b().getAsBoolean()));
+    arm.setDefaultCommand(new Cmd_ManualArm(arm, () -> SubsystemControl.getRightTriggerAxis(), () -> SubsystemControl.getLeftTriggerAxis(), () -> SubsystemControl.getRightY(), () -> SubsystemControl.y().getAsBoolean()));
 
     configureBindings();
   }
@@ -35,6 +36,7 @@ public class RobotContainer {
 
     SubsystemControl.y().whileTrue(new Cmd_Intake(intake,() -> SubsystemControl.getLeftY(), 0));
     SubsystemControl.x().whileTrue(new Cmd_Intake(intake, () -> SubsystemControl.getLeftY(), 1));
+
 
    
   }

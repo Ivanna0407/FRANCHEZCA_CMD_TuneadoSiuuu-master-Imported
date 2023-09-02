@@ -36,9 +36,9 @@ public class Cmd_Intake extends CommandBase {
   
     if(Math.abs(Speed)<.25){Speed=0;}
 
-    if(Intake.GetVoltaje()>10){bloqueo=true;}
     
-    if(bloqueo==true&&Speed>0){
+    
+    if(Speed>0){
       Speed=0;
     }
     if(Speed<0){
@@ -46,12 +46,12 @@ public class Cmd_Intake extends CommandBase {
     }
 
     if(mode==1){
-      Intake.SetIntake(Speed*.6);
+      Intake.SetIntake(Speed*-.6);
       System.out.println("modo cono");
     }
     else
     {
-    Intake.SetIntake(Speed);
+    Intake.SetIntake(Speed*-1);
     }
   }
 
