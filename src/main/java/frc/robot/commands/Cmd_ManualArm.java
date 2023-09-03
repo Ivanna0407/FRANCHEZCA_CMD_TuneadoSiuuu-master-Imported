@@ -41,17 +41,18 @@ public class Cmd_ManualArm extends CommandBase {
   public void execute() {
     double up=RT.get()-LT.get();
 
-    if(Arm.getRightArmEncoder()<=145 || Arm.getLeftArmEncoder()<=145){
+    if(Arm.getRightArmEncoder() - Arm.getLeftArmEncoder() <=10){
         Arm.setSpeedArm(up, up);
     }
     else{
       Arm.setSpeedArm(0, 0);
+      Arm.disablemotors();
 
     }
     double direccion=0;
     if(botonY.get())
     {
-      
+
     }
     if(Math.abs(Joystick.get())<=.25){direccion=0;}else{direccion=Joystick.get();}
     Arm.setSpeedWrist(direccion*.5);   

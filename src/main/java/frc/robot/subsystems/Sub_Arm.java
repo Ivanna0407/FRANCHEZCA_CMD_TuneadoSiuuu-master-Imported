@@ -98,5 +98,12 @@ public class Sub_Arm extends SubsystemBase {
     public void SetOpenLoopedSWrist(double S){
      // WristMotor.setClosedLoopRampRate(S); 
     }
-    
+
+    public void disablemotors (){
+      LeftArmMotor.disable();
+      RightArmMotor.disable();
+    }
+  // public void LockWrist (double Voltaje){
+   // ()  WristMotor.
+   // }
 }
